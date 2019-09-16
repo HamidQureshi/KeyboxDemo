@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { LedgerHelper } from 'src/app/helper/ledgerhelper';
-import { ApiService } from 'src/app/helper/api.service';
+import { ApiService } from '../../helper/api.service';
 import { AppComponent } from 'src/app/app.component';
 import { NavService } from './topnav.service';
 
@@ -19,7 +19,8 @@ export class TopnavComponent implements OnInit {
         public appComponent: AppComponent,
         public router: Router,
         private ledgerHelper: LedgerHelper,
-        private apiService: ApiService) {
+        private apiService: ApiService
+    ) {
         this.router.events.subscribe(val => {
             if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
                 this.toggleSidebar();
@@ -58,18 +59,18 @@ export class TopnavComponent implements OnInit {
 
     }
 
-    openFileDownload(){
-        this.router.navigate(['/file-download'],{ replaceUrl:true});
+    openFileDownload() {
+        this.router.navigate(['/file-download'], { replaceUrl: true });
     }
 
-    openFileUpload(){
-        this.router.navigate(['/file-upload'],{ replaceUrl:true});
+    openFileUpload() {
+        this.router.navigate(['/file-upload'], { replaceUrl: true });
 
     }
 
-    openFileList(){
-        this.router.navigate(['/file-list'],{ replaceUrl:true});
+    openFileList() {
+        this.router.navigate(['/file-list'], { replaceUrl: true });
     }
 
-   
+
 }

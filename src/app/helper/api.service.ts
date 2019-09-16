@@ -6,7 +6,6 @@ import axios, { AxiosResponse } from 'axios';
     providedIn: 'root'
 })
 
-@Injectable()
 export class ApiService {
 
     private axiosInstance;
@@ -100,7 +99,7 @@ export class ApiService {
     //         'accept': 'application/json',
     //         'Authorization': 'Bearer '+ this.ledgerHelper.token
     //       }
-           
+
 
     //       console.log('write called ' + data +' headers '+ JSON.stringify(headers));
 
@@ -122,31 +121,31 @@ export class ApiService {
 
     // }
 
-     public write(data: string): Promise<string> {
+    public write(data: string): Promise<string> {
 
         const headers = {
             'Content-Type': 'application/octet-stream',
             'accept': 'application/json',
-            'Authorization': 'Bearer '+ this.ledgerHelper.token
-          }
-           
+            'Authorization': 'Bearer ' + this.ledgerHelper.token
+        }
 
-          console.log('write called ' + data +' headers '+ JSON.stringify(headers));
+
+        console.log('write called ' + data + ' headers ' + JSON.stringify(headers));
 
 
         return new Promise(async (resolve, reject) => {
             await this.checkTokenSet();
 
             this.axiosInstance
-            .post(this.ledgerHelper.writeFileUrl, data, { headers: headers})
-            .then((resp: AxiosResponse<any>) => {
-                resolve(resp.data.reference as string);
-            })
-            .catch((err: Error) => {
+                .post(this.ledgerHelper.writeFileUrl, data, { headers: headers })
+                .then((resp: AxiosResponse<any>) => {
+                    resolve(resp.data.reference as string);
+                })
+                .catch((err: Error) => {
 
-                this.errorHandler(err.message);
-                reject(err);
-            });
+                    this.errorHandler(err.message);
+                    reject(err);
+                });
         });
 
     }
@@ -156,26 +155,26 @@ export class ApiService {
         const headers = {
             'Content-Type': 'application/octet-stream',
             'accept': 'application/json',
-            'Authorization': 'Bearer '+ this.ledgerHelper.token
-          }
-           
+            'Authorization': 'Bearer ' + this.ledgerHelper.token
+        }
 
-          console.log('read called ' + reference +' headers '+ JSON.stringify(headers));
+
+        console.log('read called ' + reference + ' headers ' + JSON.stringify(headers));
 
 
         return new Promise(async (resolve, reject) => {
             await this.checkTokenSet();
 
             this.axiosInstance
-            .get(this.ledgerHelper.baseURL+"/"+reference, { headers: headers})
-            .then((resp: AxiosResponse<any>) => {
-                resolve(resp.data);
-            })
-            .catch((err: Error) => {
+                .get(this.ledgerHelper.baseURL + "/" + reference, { headers: headers })
+                .then((resp: AxiosResponse<any>) => {
+                    resolve(resp.data);
+                })
+                .catch((err: Error) => {
 
-                this.errorHandler(err.message);
-                reject(err);
-            });
+                    this.errorHandler(err.message);
+                    reject(err);
+                });
         });
 
     }
@@ -185,26 +184,26 @@ export class ApiService {
         const headers = {
             'Content-Type': 'application/octet-stream',
             'accept': 'application/json',
-            'Authorization': 'Bearer '+ this.ledgerHelper.token
-          }
-           
+            'Authorization': 'Bearer ' + this.ledgerHelper.token
+        }
 
-          console.log('inspect called ' + reference +' headers '+ JSON.stringify(headers));
+
+        console.log('inspect called ' + reference + ' headers ' + JSON.stringify(headers));
 
 
         return new Promise(async (resolve, reject) => {
             await this.checkTokenSet();
 
             this.axiosInstance
-            .get(this.ledgerHelper.inspect+reference, { headers: headers})
-            .then((resp: AxiosResponse<any>) => {
-                resolve(resp.data);
-            })
-            .catch((err: Error) => {
+                .get(this.ledgerHelper.inspect + reference, { headers: headers })
+                .then((resp: AxiosResponse<any>) => {
+                    resolve(resp.data);
+                })
+                .catch((err: Error) => {
 
-                this.errorHandler(err.message);
-                reject(err);
-            });
+                    this.errorHandler(err.message);
+                    reject(err);
+                });
         });
 
     }
@@ -273,5 +272,5 @@ export class ApiService {
         });
     }
 
- 
+
 }

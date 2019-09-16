@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../helper/api.service';
 import { LedgerHelper } from '../helper/ledgerhelper';
 import { AppComponent } from '../app.component';
@@ -18,7 +17,6 @@ import { NavService } from '../components/topnav/topnav.service';
 export class LoginComponent implements OnInit {
   constructor(private router: Router,
     private navService: NavService,
-    private http: HttpClient,
     private apiService: ApiService,
     private ledgerHelper: LedgerHelper,
     private appComp: AppComponent) { }
