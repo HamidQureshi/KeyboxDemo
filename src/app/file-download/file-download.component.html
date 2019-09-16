@@ -1,0 +1,39 @@
+<div style="margin: 70px 0px 10px 10px">Enter the reference of file to Download:</div>
+
+<mat-form-field>
+    <input matInput [(ngModel)]="name" placeholder="Enter document name here">
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput [(ngModel)]="reference" placeholder="Enter refernce here">
+</mat-form-field>
+
+<div fxFlex fxLayout="row" fxLayout.lt-md="column" [hidden]="hidden">
+    <div fxFlexFill>
+        <div class="text" style="margin: 0 0 20px 20px"> Status: {{status}} </div>
+    </div>
+</div>
+
+<div fxFlex fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 20px 20px" [hidden]="hidden">
+    <div fxFlexFill>
+        <mat-list>
+            <h3 color="primary" mat-subheader> Fragments </h3>
+            <mat-list-item *ngFor="let fragment of fragments">
+                <mat-icon mat-list-icon style="color: coral">insert_drive_file</mat-icon>
+                <h4 mat-line>{{fragment}}</h4>
+                <mat-divider></mat-divider>
+
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>
+
+<div fxFlex fxLayout="row" fxLayout.lt-md="column" align="end">
+    <div fxFlexFill>
+        <button style="margin: 20px" mat-raised-button color="primary" class="w-100" (click)="inspectDocumet()"
+            type='button'>Inspect file</button>
+        <button style="margin: 20px" mat-raised-button color="primary" class="w-100" (click)="downloadDocumet()"
+            type='button'>Download file</button>
+
+    </div>
+</div>

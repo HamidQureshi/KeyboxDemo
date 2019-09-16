@@ -3,16 +3,69 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+  MatTableModule,
+  MatFormFieldModule,
+  MatPaginatorModule
+  , MatInputModule,
+  MatSnackBarModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatMenuModule,
+  MatListModule,
+  MatIconModule,
+} from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { TopnavComponent } from './components/topnav/topnav.component';
+import { NavService } from './components/topnav/topnav.service';
+import { FileListComponent } from './file-list/file-list.component';
+import { NgxFabModule } from 'ngx-fab';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { DragDropDirective } from './file-upload/drag-drop.directive';
+import { FileDownloadComponent } from './file-download/file-download.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopnavComponent,
+    LoginComponent,
+    FileListComponent,
+    FileUploadComponent,
+    DragDropDirective,
+    FileDownloadComponent
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatListModule,
+    NgxFabModule,
+
+    CommonModule,
+
+    FormsModule,
+
+    BrowserAnimationsModule,
+
+    MatIconModule,
+
   ],
-  providers: [],
+  providers: [NavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

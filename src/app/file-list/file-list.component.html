@@ -1,0 +1,39 @@
+
+<mat-form-field style="margin: 60px 0px 0px 0px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort >
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> File Title </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="ref">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Document Reference </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.ref}} </td>
+        </ng-container>
+
+        <tr style ="background-color: #f0a40c;" mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
+
+<div>
+    <ngx-fab [backgroundColor]="'#f0a40c'" [fabSize]="'medium'" [position]="'top-right'" [iconClass]="'fas fa-plus'"
+        [iconColor]="'#fff'"  (click)="uploadFile()">
+        Add report
+    </ngx-fab>
+</div>

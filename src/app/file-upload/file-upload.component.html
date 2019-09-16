@@ -1,0 +1,18 @@
+<div style="margin: 65px 0px 0px 0px">Drop files here or Click the cloud:</div>
+
+<div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+    <input hidden type="file" #fileInput (change)="uploadFile($event)">
+</div>
+<div class="files-list" *ngFor="let file of files;let i= index">
+    <p> {{ file.name }} </p>
+    <button class="delete-file" (click)="deleteAttachment(i)">
+        <img src="../../assets/Recycle_Bin_Full.png">
+    </button>
+</div>
+
+<div fxFlex fxLayout="row" fxLayout.lt-md="column" align="end">
+    <div fxFlexFill>
+        <button style="margin: 20px" mat-raised-button color="primary" class="w-100" (click)="uploadDocumetToServer()"
+            type='button'>Upload files</button>
+    </div>
+</div>
