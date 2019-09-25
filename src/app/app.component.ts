@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    const worker = new Worker('', {});
     console.log('app is running');
 
     if (this.ledgerHelper.isLoggedin === 'true') {
