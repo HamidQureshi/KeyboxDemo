@@ -53,7 +53,15 @@ export class TopnavComponent implements OnInit {
                 // localStorage.removeItem('isLoggedin');
                 this.router.navigate(['/login']);
             })
-            .catch((err: unknown) => {
+            .catch((err: Error) => {
+                if (err.message === 'Request failed with status code 401') {
+                    this.ledgerHelper.isLoggedin = 'false';
+                    this.ledgerHelper.token = '';
+                    this.appComponent.showSnackBar('Successfully logged out');
+                    // localStorage.removeItem('isLoggedin');
+                    this.router.navigate(['/login']);
+                    return;
+                }
                 this.appComponent.showSnackBar('Logout Failed');
             });
 
