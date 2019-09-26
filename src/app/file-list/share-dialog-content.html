@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Share Document</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Enter the receipent username to generate a shareable link.</h3>
+    <mat-form-field>
+        <input matInput [(ngModel)]="receiverName" placeholder="Enter receipent user name here">
+    </mat-form-field>
+    <h3>Link :</h3>
+    <p> {{link}} </p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button color="warning" mat-button mat-dialog-close>Close</button>
+    <!-- <button color="primary" mat-button [mat-dialog-close]="true" (click)="genSharableLink()" -->
+    <button color="primary" mat-button (click)="genSharableLink()" cdkFocusInitial>Share</button>
+</mat-dialog-actions>

@@ -15,6 +15,8 @@ import {
   MatMenuModule,
   MatListModule,
   MatIconModule,
+  MatDialog,
+  MatDialogModule,
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
@@ -27,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DragDropDirective } from './file-upload/drag-drop.directive';
 import { FileDownloadComponent } from './file-download/file-download.component';
+import { ShareDialog } from './file-list/ShareDialog';
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { FileDownloadComponent } from './file-download/file-download.component';
     FileListComponent,
     FileUploadComponent,
     DragDropDirective,
-    FileDownloadComponent
+    FileDownloadComponent,
+    ShareDialog
 
   ],
   imports: [
@@ -55,15 +59,15 @@ import { FileDownloadComponent } from './file-download/file-download.component';
     MatMenuModule,
     MatListModule,
     NgxFabModule,
-
     CommonModule,
-
     FormsModule,
-
     BrowserAnimationsModule,
-
     MatIconModule,
+    MatDialogModule
 
+  ],
+  entryComponents: [
+    ShareDialog
   ],
   providers: [NavService],
   bootstrap: [AppComponent]

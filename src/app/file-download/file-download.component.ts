@@ -9,11 +9,13 @@ import { AppComponent } from '../app.component';
 })
 export class FileDownloadComponent implements OnInit {
 
-  reference: string;
-  name: string;
+  documentLink: string;
   status: string;
   fragments: string[];
   hidden = true;
+
+  reference: string;
+  fileName: string;
 
   constructor(
     private appComponent: AppComponent,
@@ -23,7 +25,20 @@ export class FileDownloadComponent implements OnInit {
   ngOnInit() {
   }
 
+  parseLink(link: string) {
+    const metaData = link.split('/');
+    console.log(metaData);
+    this.reference = metaData[0];
+    this.fileName = metaData[1];
+    return metaData;
+  }
+
   downloadDocumet() {
+    console.log(this.documentLink);
+
+    this.parseLink(this.documentLink);
+
+
     console.log(this.reference);
     this.apiService.read(this.reference)
       .then(response => {
@@ -31,7 +46,7 @@ export class FileDownloadComponent implements OnInit {
 
         const linkSource = 'data:application/.js;base64,' + response;
         const downloadLink = document.createElement('a');
-        const fileName = this.name;
+        const fileName = this.fileName;
 
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
@@ -49,8 +64,10 @@ export class FileDownloadComponent implements OnInit {
 
   inspectDocumet() {
 
+    this.parseLink(this.documentLink);
+
     if (!this.reference) {
-      this.appComponent.showSnackBar('Enter a refernce to File first');
+      this.appComponent.showSnackBar('Enter a link to File first');
       return;
     }
 

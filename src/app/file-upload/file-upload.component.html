@@ -6,7 +6,8 @@
 <div class="files-list" *ngFor="let file of files;let i= index">
     <p> {{ file.name }} </p>
     <button class="delete-file" (click)="deleteAttachment(i)">
-        <img src="../../assets/Recycle_Bin_Full.png">
+        <mat-icon mat-list-icon style="color: coral">delete</mat-icon>
+
     </button>
 </div>
 

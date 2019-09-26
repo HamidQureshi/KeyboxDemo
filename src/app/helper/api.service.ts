@@ -179,6 +179,33 @@ export class ApiService {
 
     }
 
+    public share(reference: string, recName: string): Promise<string> {
+
+        const headers = {
+            accept: 'application/octet-stream',
+            Authorization: 'Bearer ' + this.ledgerHelper.token
+        }
+
+
+        console.log('share called ' + reference + ' name ' + recName + ' headers ' + JSON.stringify(headers));
+
+
+        return new Promise(async (resolve, reject) => {
+            await this.checkTokenSet();
+
+            this.axiosInstance
+                .get(this.ledgerHelper.shareUrl + '/' + reference + '/' + recName, { headers: headers })
+                .then((resp: AxiosResponse<any>) => {
+                    resolve(resp.data.share as string);
+                })
+                .catch((err: Error) => {
+
+                    this.errorHandler(err.message);
+                    reject(err);
+                });
+        });
+    }
+
     public inspect(reference: string): Promise<any> {
 
         const headers = {

@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
 
   onLogin(username, password) {
 
+    this.ledgerHelper.updateAppID(username);
+    this.ledgerHelper.user_name = '' + username;
+
     const body = {
       username,
       password
@@ -50,7 +53,8 @@ export class LoginComponent implements OnInit {
           })
           .catch();
         console.log('token =' + token);
-        this.ledgerHelper.user_name = '' + username;
+        console.log('---' + this.ledgerHelper.user_name)
+        // this.ledgerHelper.user_name = '' + username;
         this.ledgerHelper.token = token;
         this.ledgerHelper.isLoggedin = '' + true;
         this.ledgerHelper.profileCreated = '' + true;

@@ -8,12 +8,13 @@ import { Injectable } from '@angular/core';
 
 export class LedgerHelper {
 
-    // constructor(private persistenceService: PersistenceService) {
     constructor() {
         console.log('ledger helper const called');
+        localStorage.setItem('appID_Keybox', ':KeyBox:');
+        this.appID = localStorage.getItem('appID_Keybox');
     }
 
-    appID = 'KeyBox';
+    appID = '';
     baseURL = 'https://api.keybox.co/api';
 
     // baseURL2= 'https://poc.keybox.co';
@@ -22,6 +23,7 @@ export class LedgerHelper {
     signUpUrl = this.baseURL + '/users';
     logoutUrl = this.baseURL + '/logout/';
     writeFileUrl = this.baseURL + '/write';
+    shareUrl = this.baseURL + '/share/';
     inspect = this.baseURL + '/inspect/';
     whoAmIUrl = this.baseURL + '/whoami';
     changePasswordUrl = this.baseURL + '/users/changePassword';
@@ -30,6 +32,22 @@ export class LedgerHelper {
 
 
     nameSpace = 'demoNamespace';
+
+    updateAppID(uniqueID: string) {
+        console.log('------------');
+        console.log(this.appID);
+        console.log(uniqueID);
+
+        localStorage.setItem('appID_Keybox', this.appID + uniqueID);
+        this.appID = localStorage.getItem('appID_Keybox');
+        console.log(this.appID);
+
+    }
+
+    resetAppID() {
+        localStorage.setItem('appID_Keybox', ':KeyBox:');
+        this.appID = ':KeyBox:';
+    }
 
     get account_type(): string {
         return localStorage.getItem('account_type' + this.appID);
@@ -53,20 +71,10 @@ export class LedgerHelper {
     }
 
     get filesList(): string {
-        // if (this.persistenceService.get('reportlist' + this.appID )) {
-        //     return '[]';
-        // }
         return !localStorage.getItem('filesList' + this.appID) ? '[]' : localStorage.getItem('filesList' + this.appID);
-
-        // return !this.persistenceService.get('filesList' + this.appID )? '[]':this.persistenceService.get('filesList' + this.appID );
-
     }
     set filesList(files: string) {
         localStorage.setItem('filesList' + this.appID, files);
-
-        // this.persistenceService.set('filesList' + this.appID , files);
-        // this.persistenceService.set('reportlist', reports, { type: StorageType.SESSION });
-
     }
 
     get email(): string {

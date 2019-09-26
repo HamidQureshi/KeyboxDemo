@@ -52,6 +52,7 @@ export class TopnavComponent implements OnInit {
                 this.appComponent.showSnackBar('Successfully logged out');
                 // localStorage.removeItem('isLoggedin');
                 this.router.navigate(['/login']);
+                this.ledgerHelper.resetAppID();
             })
             .catch((err: Error) => {
                 if (err.message === 'Request failed with status code 401') {

@@ -1,11 +1,7 @@
-<div style="margin: 70px 0px 10px 10px">Enter the reference of file to Download:</div>
+<div style="margin: 70px 0px 10px 10px">Enter the link of file to Download:</div>
 
 <mat-form-field>
-    <input matInput [(ngModel)]="name" placeholder="Enter document name here">
-</mat-form-field>
-
-<mat-form-field>
-    <input matInput [(ngModel)]="reference" placeholder="Enter refernce here">
+    <input matInput [(ngModel)]="documentLink" placeholder="Enter document link here">
 </mat-form-field>
 
 <div fxFlex fxLayout="row" fxLayout.lt-md="column" [hidden]="hidden">

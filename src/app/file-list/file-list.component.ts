@@ -1,9 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatSort,
+  MatDialog
+} from '@angular/material';
 import { Document } from '../model/Document';
 import { NavService } from '../components/topnav/topnav.service';
 import { LedgerHelper } from '../helper/ledgerhelper';
+import { ShareDialog } from './ShareDialog';
 
 @Component({
   selector: 'app-file-list',
@@ -12,7 +18,8 @@ import { LedgerHelper } from '../helper/ledgerhelper';
 })
 export class FileListComponent implements OnInit {
 
-  displayedColumns = ['id', 'name', 'ref'];
+  displayedColumns = ['id', 'name', 'ref', 'share'];
+
   dataSource: MatTableDataSource<Document>;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -20,11 +27,11 @@ export class FileListComponent implements OnInit {
 
   files: Array<Document> = [];
 
-
   constructor(
     private navService: NavService,
     private ledgerHelper: LedgerHelper,
-    private router: Router
+    private router: Router,
+    public shareDialog: MatDialog
   ) {
   }
 
@@ -48,7 +55,6 @@ export class FileListComponent implements OnInit {
 
   }
 
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -58,4 +64,24 @@ export class FileListComponent implements OnInit {
     }
   }
 
+  shareDocument(row) {
+    if (!row) {
+      return;
+    }
+    this.ledgerHelper.file = JSON.stringify(row);
+    // this.router.navigate(['/file-detail'], { replaceUrl: true });
+
+    const dialogRef = this.shareDialog.open(ShareDialog, {
+      data: {
+        filename: row.name,
+        reference: row.ref
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 }
+
