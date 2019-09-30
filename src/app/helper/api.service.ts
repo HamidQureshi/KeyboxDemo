@@ -11,7 +11,7 @@ export class ApiService {
     private axiosInstance;
 
     constructor(private ledgerHelper: LedgerHelper) {
-        console.log('-url-' + ledgerHelper.baseURL);
+        // console.log('-url-' + ledgerHelper.baseURL);
         this.axiosInstance = axios.create({
             baseURL: ledgerHelper.baseURL,
             timeout: 1000000
@@ -156,6 +156,35 @@ export class ApiService {
             'Content-Type': 'application/octet-stream',
             'accept': 'application/json',
             'Authorization': 'Bearer ' + this.ledgerHelper.token
+        }
+
+
+        console.log('read called ' + reference + ' headers ' + JSON.stringify(headers));
+
+
+        return new Promise(async (resolve, reject) => {
+            await this.checkTokenSet();
+
+            this.axiosInstance
+                .get(this.ledgerHelper.baseURL + "/" + reference, { headers: headers })
+                .then((resp: AxiosResponse<any>) => {
+                    resolve(resp.data);
+                })
+                .catch((err: Error) => {
+
+                    this.errorHandler(err.message);
+                    reject(err);
+                });
+        });
+
+    }
+
+    public read_anyone(reference: string, token: string): Promise<string> {
+
+        const headers = {
+            'Content-Type': 'application/octet-stream',
+            'accept': 'application/json',
+            'Authorization': 'Bearer ' + token
         }
 
 

@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { FileListComponent } from './file-list/file-list.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
+import { PublicComponent } from './public/public.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
     path: 'file-download',
     component: FileDownloadComponent
   },
+  {
+    path: 'public',
+    component: PublicComponent
+  }
 ];
 
 @NgModule({

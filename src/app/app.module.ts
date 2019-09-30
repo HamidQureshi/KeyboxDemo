@@ -17,6 +17,8 @@ import {
   MatIconModule,
   MatDialog,
   MatDialogModule,
+  MatRadioButton,
+  MatRadioModule,
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
@@ -30,6 +32,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DragDropDirective } from './file-upload/drag-drop.directive';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { ShareDialog } from './file-list/ShareDialog';
+import { PublicComponent } from './public/public.component';
 
 
 @NgModule({
@@ -41,7 +44,8 @@ import { ShareDialog } from './file-list/ShareDialog';
     FileUploadComponent,
     DragDropDirective,
     FileDownloadComponent,
-    ShareDialog
+    ShareDialog,
+    PublicComponent
 
   ],
   imports: [
@@ -63,7 +67,8 @@ import { ShareDialog } from './file-list/ShareDialog';
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
 
   ],
   entryComponents: [

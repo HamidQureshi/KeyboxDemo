@@ -31,8 +31,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log('app is running');
+    console.log('---- ' + this.router.url);
+    console.log('---' + window.location.href);
 
-    if (this.ledgerHelper.isLoggedin === 'true') {
+    if (window.location.href.includes('public')) {
+      const metaData = window.location.href.split('/');
+      const ref = metaData[metaData.length - 2];
+      const fname = metaData[metaData.length - 1];
+
+      console.log('ref = ' + ref);
+
+      this.router.navigate(['/public', { reference: ref, filename: fname }]);
+    }
+    else if (this.ledgerHelper.isLoggedin === 'true') {
       this.router.navigate(['/file-list']);
 
     } else {

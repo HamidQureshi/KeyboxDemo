@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onLogin(username, password) {
 
-    this.ledgerHelper.updateAppID(username);
+    // this.ledgerHelper.updateAppID(username);
     this.ledgerHelper.user_name = '' + username;
 
     const body = {

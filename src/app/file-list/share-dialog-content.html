@@ -1,10 +1,14 @@
 <h2 mat-dialog-title>Share Document</h2>
 <mat-dialog-content class="mat-typography">
-    <h3>Enter the receipent username to generate a shareable link.</h3>
+    <h3>Enter the receipent username to generate a shareable link, or share to Anyone</h3>
     <mat-form-field>
-        <input matInput [(ngModel)]="receiverName" placeholder="Enter receipent user name here">
+        <input matInput [(ngModel)]="receiverName" [disabled]=shareWithAnyone
+            placeholder="Enter receipent user name here">
     </mat-form-field>
-    <h3>Link :</h3>
+    <h3> Or</h3>
+    <mat-checkbox [(ngModel)]="shareWithAnyone">Share with Anyone</mat-checkbox>
+
+    <h3 style="margin-top: 2%">Link :</h3>
     <p> {{link}} </p>
 
 </mat-dialog-content>

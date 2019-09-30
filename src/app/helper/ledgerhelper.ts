@@ -9,12 +9,12 @@ import { Injectable } from '@angular/core';
 export class LedgerHelper {
 
     constructor() {
-        console.log('ledger helper const called');
-        localStorage.setItem('appID_Keybox', ':KeyBox:');
-        this.appID = localStorage.getItem('appID_Keybox');
+        // console.log('ledger helper const called');
+        // localStorage.setItem('appID_Keybox', ':KeyBox:');
+        // this.appID = localStorage.getItem('appID_Keybox');
     }
 
-    appID = '';
+    appID = ':KeyBox:';
     baseURL = 'https://api.keybox.co/api';
 
     // baseURL2= 'https://poc.keybox.co';

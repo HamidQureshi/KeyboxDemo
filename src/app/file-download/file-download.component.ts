@@ -46,6 +46,7 @@ export class FileDownloadComponent implements OnInit {
 
         const linkSource = 'data:application/.js;base64,' + response;
         const downloadLink = document.createElement('a');
+        document.body.appendChild(downloadLink);
         const fileName = this.fileName;
 
         downloadLink.href = linkSource;

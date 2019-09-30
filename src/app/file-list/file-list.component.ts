@@ -10,6 +10,8 @@ import { Document } from '../model/Document';
 import { NavService } from '../components/topnav/topnav.service';
 import { LedgerHelper } from '../helper/ledgerhelper';
 import { ShareDialog } from './ShareDialog';
+import { ApiService } from '../helper/api.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-file-list',
@@ -18,7 +20,7 @@ import { ShareDialog } from './ShareDialog';
 })
 export class FileListComponent implements OnInit {
 
-  displayedColumns = ['id', 'name', 'ref', 'share'];
+  displayedColumns = ['id', 'name', 'ref', 'share', 'download'];
 
   dataSource: MatTableDataSource<Document>;
 
@@ -31,7 +33,9 @@ export class FileListComponent implements OnInit {
     private navService: NavService,
     private ledgerHelper: LedgerHelper,
     private router: Router,
-    public shareDialog: MatDialog
+    public shareDialog: MatDialog,
+    private apiService: ApiService,
+    private appComponent: AppComponent
   ) {
   }
 
@@ -65,6 +69,7 @@ export class FileListComponent implements OnInit {
   }
 
   shareDocument(row) {
+    console.log('file list clicked');
     if (!row) {
       return;
     }
@@ -81,6 +86,38 @@ export class FileListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  downloadDocument(row) {
+    console.log('file download clicked');
+    console.log(row);
+    if (!row) {
+      return;
+    }
+
+    console.log(row.ref);
+    console.log(row.name);
+
+    this.apiService.read(row.ref)
+      .then(response => {
+        console.log(response);
+
+        const linkSource = 'data:application/.js;base64,' + response;
+        const downloadLink = document.createElement('a');
+        document.body.appendChild(downloadLink);
+        const fileName = row.name;
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+
+        this.appComponent.showSnackBar('File Downloaded');
+
+      })
+      .catch(error => {
+        // this.appComponent.showSnackBar('File Download Failed');
+        console.log(error);
+      });
   }
 
 }
