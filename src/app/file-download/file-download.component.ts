@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../helper/api.service';
 import { AppComponent } from '../app.component';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-file-download',
@@ -19,7 +20,8 @@ export class FileDownloadComponent implements OnInit {
 
   constructor(
     private appComponent: AppComponent,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: Ng4LoadingSpinnerService
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,11 @@ export class FileDownloadComponent implements OnInit {
   }
 
   downloadDocumet() {
+    if (!this.documentLink) {
+      this.appComponent.showSnackBar('Enter a link to File first');
+      return;
+    }
+    this.spinnerService.show();
     console.log(this.documentLink);
 
     this.parseLink(this.documentLink);
@@ -52,11 +59,14 @@ export class FileDownloadComponent implements OnInit {
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
         downloadLink.click();
+        this.spinnerService.hide();
 
         this.appComponent.showSnackBar('File Downloaded');
 
       })
       .catch(error => {
+        this.spinnerService.hide();
+
         this.appComponent.showSnackBar('File Download Failed');
 
         console.log(error);

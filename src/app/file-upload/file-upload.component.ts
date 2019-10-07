@@ -4,6 +4,7 @@ import { Document } from '../model/Document';
 import { LedgerHelper } from '../helper/ledgerhelper';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,14 +13,12 @@ import { AppComponent } from '../app.component';
 })
 export class FileUploadComponent implements OnInit {
 
-  uploadSaveUrl = 'saveUrl'; // should represent an actual API endpoint
-  uploadRemoveUrl = 'removeUrl'; // should represent an actual API endpoint
-
   constructor(
     private appComponent: AppComponent,
     private apiService: ApiService,
     private ledgerHelper: LedgerHelper,
-    private router: Router
+    private router: Router,
+    private spinnerService: Ng4LoadingSpinnerService
   ) { }
 
   ngOnInit() {
@@ -38,9 +37,11 @@ export class FileUploadComponent implements OnInit {
 
   uploadFile(event) {
 
+    this.spinnerService.show();
+    console.log('spinner show');
 
     if (!event.length) {
-      //attach code
+      // attach code
       const fileList: FileList = event.target.files;
       console.log('attach code');
       console.log(fileList.length);
@@ -71,7 +72,7 @@ export class FileUploadComponent implements OnInit {
       }
     }
     else {
-      //drag drop code
+      // drag drop code
       console.log('drag drop code');
       console.log(event)
 
@@ -104,27 +105,33 @@ export class FileUploadComponent implements OnInit {
 
     }
 
+    this.spinnerService.hide();
+    console.log('spinner hide');
+
   }
 
 
   async uploadDocumetToServer() {
 
+    this.spinnerService.show();
+    console.log('spinner show');
+
 
     console.log(this.files);
     for (let index = 0; index < this.files.length; index++) {
-      //upload file 
-      //write gets called 3 times and then response is replaced
+      // upload file 
+      // write gets called 3 times and then response is replaced
       await this.apiService.write(this.files[index].base64)
         .then(resp => {
-          //add files to pref here
+          // add files to pref here
           console.log('--reference-' + resp);
-          //update the reference in doc 
+          // update the reference in doc 
           console.log('---file before---');
           console.log(JSON.stringify(this.files[index]));
           this.files[index].ref = resp;
           console.log('---file after---');
           console.log(JSON.stringify(this.files[index]));
-          //add update doc to pref list 
+          // add update doc to pref list 
           this.addDocToPrefList(this.files[index]);
 
           this.appComponent.showSnackBar('File ' + this.files[index].name + ' uploaded');
@@ -132,11 +139,19 @@ export class FileUploadComponent implements OnInit {
         .catch(error => {
           this.appComponent.showSnackBar('File upload failed');
           console.log(error);
+        })
+        .finally(() => {
+          this.spinnerService.hide();
+          console.log('spinner hide');
+          this.router.navigate(['/file-list'], { replaceUrl: true });
+
         });
 
     }
 
-    this.router.navigate(['/file-list'], { replaceUrl: true });
+   
+
+
 
   }
 

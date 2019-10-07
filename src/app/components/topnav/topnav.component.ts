@@ -4,6 +4,7 @@ import { LedgerHelper } from 'src/app/helper/ledgerhelper';
 import { ApiService } from '../../helper/api.service';
 import { AppComponent } from 'src/app/app.component';
 import { NavService } from './topnav.service';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
     selector: 'app-topnav',
@@ -19,7 +20,8 @@ export class TopnavComponent implements OnInit {
         public appComponent: AppComponent,
         public router: Router,
         private ledgerHelper: LedgerHelper,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private spinnerService: Ng4LoadingSpinnerService
     ) {
         this.router.events.subscribe(val => {
             if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
@@ -44,9 +46,11 @@ export class TopnavComponent implements OnInit {
     }
 
     onLoggedout() {
+        this.spinnerService.show();
         this.apiService
             .logout(this.ledgerHelper.token)
             .then(() => {
+                this.spinnerService.hide();
                 this.ledgerHelper.isLoggedin = 'false';
                 this.ledgerHelper.token = '';
                 this.appComponent.showSnackBar('Successfully logged out');
@@ -55,6 +59,7 @@ export class TopnavComponent implements OnInit {
                 this.ledgerHelper.resetAppID();
             })
             .catch((err: Error) => {
+                this.spinnerService.hide();
                 if (err.message === 'Request failed with status code 401') {
                     this.ledgerHelper.isLoggedin = 'false';
                     this.ledgerHelper.token = '';

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
 import {
   MatTableModule,
   MatFormFieldModule,
@@ -19,6 +21,7 @@ import {
   MatDialogModule,
   MatRadioButton,
   MatRadioModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
@@ -68,7 +71,10 @@ import { PublicComponent } from './public/public.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+      MatProgressSpinnerModule,
+      Ng4LoadingSpinnerModule.forRoot()
+
 
   ],
   entryComponents: [
