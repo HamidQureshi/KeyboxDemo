@@ -1,3 +1,11 @@
 <app-topnav style="margin: 0px 0px 0px 0px"></app-topnav>
 
 <router-outlet></router-outlet>
+
+<ng4-loading-spinner
+[timeout]="10000"
+[loadingText]="'Please wait...'"
+[threshold]="0"
+color = "Primary"
+> 
+</ng4-loading-spinner>

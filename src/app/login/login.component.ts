@@ -5,6 +5,7 @@ import { ApiService } from '../helper/api.service';
 import { LedgerHelper } from '../helper/ledgerhelper';
 import { AppComponent } from '../app.component';
 import { NavService } from '../components/topnav/topnav.service';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,12 @@ import { NavService } from '../components/topnav/topnav.service';
 @Injectable()
 export class LoginComponent implements OnInit {
   constructor(private router: Router,
-    private navService: NavService,
-    private apiService: ApiService,
-    private ledgerHelper: LedgerHelper,
-    private appComp: AppComponent) { }
+              private navService: NavService,
+              private apiService: ApiService,
+              private ledgerHelper: LedgerHelper,
+              private appComp: AppComponent,
+              private spinnerService: Ng4LoadingSpinnerService
+    ) { }
 
   ngOnInit() {
     this.navService.hide();
@@ -27,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   onLogin(username, password) {
 
+    this.spinnerService.show();
     // this.ledgerHelper.updateAppID(username);
     this.ledgerHelper.user_name = '' + username;
 
@@ -52,6 +56,8 @@ export class LoginComponent implements OnInit {
             this.ledgerHelper.account_type = '' + user.accountType;
           })
           .catch();
+
+        this.spinnerService.hide();
         console.log('token =' + token);
         console.log('---' + this.ledgerHelper.user_name)
         // this.ledgerHelper.user_name = '' + username;
@@ -62,6 +68,7 @@ export class LoginComponent implements OnInit {
         this.appComp.showSnackBar('Successfully logged in');
       })
       .catch((err: unknown) => {
+        this.spinnerService.show();
         this.ledgerHelper.isLoggedin = '' + false;
         this.appComp.showSnackBar('Wrong credentials');
       });
